@@ -1,0 +1,72 @@
+{
+  "name": "@devsquad/angular-ionic-modules",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=6.9.0",
+    "npm": ">=3.0.0",
+    "yarn": ">=0.21.3"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "prebuild": "npm run clean:dist",
+    "build": "node ./scripts/run-scope --build",
+    "precanary": "npm run build",
+    "canary": "node ./scripts/run-scope --canary",
+    "clean:dist": "lerna exec -- rimraf ./dist",
+    "clean:modules": "lerna clean",
+    "clean": "npm run clean:modules && npm run clean:dist",
+    "commit": "git-cz",
+    "commitmsg": "validate-commit-msg",
+    "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
+    "prepush": "npm run lint",
+    "prepublish": "npm run build",
+    "publish": "node ./scripts/run-scope --publish",
+    "start": "lerna exec -- npm run start"
+  },
+  "dependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.4.1"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "^4.0.0",
+    "@devsquad/tslint-rules": "0.0.1",
+    "commitizen": "^2.9.6",
+    "husky": "^0.14.3",
+    "lerna": "^2.0.0",
+    "rimraf": "^2.5.4",
+    "rxjs": "^5.4.1",
+    "typescript": "^2.4.2",
+    "validate-commit-msg": "^2.14.0"
+  },
+  "config": {
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore"
+      ],
+      "scope": {
+        "required": false,
+        "allowed": [
+          "*"
+        ],
+        "validate": false,
+        "multiple": true
+      },
+      "warnOnFail": false,
+      "maxSubjectLength": 100,
+      "subjectPattern": ".+",
+      "subjectPatternErrorMsg": "subject does not match subject pattern!",
+      "helpMessage": "",
+      "autoFix": false
+    }
+  }
+}

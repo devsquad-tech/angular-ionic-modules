@@ -1,0 +1,3 @@
+{
+  "extends": "@devsquad/tslint-rules"
+}
