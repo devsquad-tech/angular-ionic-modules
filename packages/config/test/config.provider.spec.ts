@@ -42,4 +42,14 @@ describe('Config Provider', () => {
     config.set('keyProd', 'secret', 'prod');
     expect(config.get('keyProd', 'prod')).toBe('secret');
   }));
+
+  it('Section extends', inject([ Config ], (config: Config) => {
+    config.setSectionExtends('prod', 'dev');
+    expect(config.getSectionExtends('prod')).toBe('dev');
+  }));
+
+  it('Section extends not exists', inject([ Config ], (config: Config) => {
+    expect(() => config.setSectionExtends('prod', 'dev2'))
+     .toThrow(new Error("Not allow inherits 'dev2' because not exists in data"));
+  }));
 });
