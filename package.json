@@ -25,7 +25,7 @@
     "publish": "node ./scripts/run-scope --publish",
     "pretest": "npm run clean:dist",
     "test": "node ./scripts/run-scope --test",
-    "posttest": "node ./scripts/run-scope --test"
+    "posttest": "npm run jasmine"
   },
   "dependencies": {
     "@angular/common": "^4.0.0",
