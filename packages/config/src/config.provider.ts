@@ -29,6 +29,10 @@ export class Config {
    * @return {Config} fluent interface
    */
   set(key: string, value: any, section: string): this {
+    if (!(section in this.data)) {
+      this.data[section] = {};
+    }
+
     this.data[section][key] = value;
 
     return this;
