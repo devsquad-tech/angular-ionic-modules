@@ -23,22 +23,22 @@ describe('Config Provider', () => {
     });
   });
 
-  it('Get all', inject([Config],(config: Config) => {
+  it('Get all', inject([ Config ], (config: Config) => {
     const keys = Object.keys(config.getAll());
     expect(keys.length).toBe(1);
   }));
 
-  it('Get value', inject([Config],(config: Config) => {
+  it('Get value', inject([ Config ], (config: Config) => {
     expect(config.get('key', 'dev')).toBe('value');
   }));
 
-  it('Set value', inject([Config],(config: Config) => {
+  it('Set value', inject([ Config ], (config: Config) => {
     const chainConfig = config.set('key2', 'foo', 'dev');
     expect(chainConfig).toBe(config);
     expect(config.get('key2', 'dev')).toBe('foo');
   }));
 
-  it('Set value section not exists', inject([Config],(config: Config) => {
+  it('Set value section not exists', inject([ Config ], (config: Config) => {
     config.set('keyProd', 'secret', 'prod');
     expect(config.get('keyProd', 'prod')).toBe('secret');
   }));
