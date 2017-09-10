@@ -1,15 +1,26 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 export interface Data {
   [section: string]: { [key: string]: any };
 }
+
+export const ConfigData = new InjectionToken('ConfigDataId');
 
 @Injectable()
 export class Config {
 
   private sectionsExtends: {[section: string]: string};
 
-  constructor(private data: Data) {}
+  constructor(@Inject(ConfigData) private data: Data) {}
+
+  /**
+   * Return all data
+   *
+   * @return {Data}
+   */
+  getAll(): Data {
+    return this.data;
+  }
 
   /**
    * @param {string} key
