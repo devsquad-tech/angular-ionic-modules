@@ -50,6 +50,6 @@ describe('Config Provider', () => {
 
   it('Section extends not exists', inject([ Config ], (config: Config) => {
     expect(() => config.setSectionExtends('prod', 'dev2'))
-     .toThrow(new Error("Not allow inherits 'dev2' because not exists in data"));
+     .toThrow(new Error('Not allow inherits \'dev2\' because not exists in data'));
   }));
 });
