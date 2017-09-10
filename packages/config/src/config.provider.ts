@@ -29,6 +29,7 @@ export class Config {
    * @return {Config} fluent interface
    */
   set(key: string, value: any, section: string): this {
+    // case section not exists create empty
     if (!(section in this.data)) {
       this.data[section] = {};
     }
@@ -48,11 +49,11 @@ export class Config {
 
     // can't inherits case not exists in data
     if (!(sectionExtends in this.data)) {
-      throw new Error(`Not allow inherits
-        ${sectionExtends} because not exists in data`
-      );
+      const messageException = `Not allow inherits '${sectionExtends}' because not exists in data`;
+      throw new Error(messageException);
     }
 
+    // case section main not exists create empty
     if (!(section in this.data)) {
       this.data[section] = {};
     }
@@ -67,6 +68,7 @@ export class Config {
    * @return {string}
    */
   getSectionExtends(section: string): string {
+    // case section not inherits throw exception
     if (!this.sectionsExtends[section]) {
       throw new Error(`Section ${section} not exists`);
     }
