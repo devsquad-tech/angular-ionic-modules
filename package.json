@@ -18,17 +18,24 @@
     "clean": "npm run clean:modules && npm run clean:dist",
     "commit": "git-cz",
     "commitmsg": "validate-commit-msg",
+    "jasmine": "lerna exec -- jasmine JASMINE_CONFIG_PATH=test/jasmine-config.json",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "prepush": "npm run lint",
     "prepublish": "npm run build",
     "publish": "node ./scripts/run-scope --publish",
-    "start": "lerna exec -- npm run start"
+    "test": "node ./scripts/run-scope --test",
+    "posttest": "node ./scripts/run-scope --test"
   },
   "dependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
-    "rxjs": "^5.4.1"
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@types/jasmine": "2.2.33",
+    "jasmine": "2.5.2",
+    "rxjs": "^5.4.1",
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^4.0.0",
@@ -36,6 +43,7 @@
     "commitizen": "^2.9.6",
     "husky": "^0.14.3",
     "lerna": "^2.0.0",
+    "reflect-metadata": "0.1.8",
     "rimraf": "^2.5.4",
     "rxjs": "^5.4.1",
     "typescript": "^2.4.2",

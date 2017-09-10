@@ -1,0 +1,27 @@
+{
+  "name": "@devsquad/config",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "Manager configuration project in file json, database or static object",
+  "main": "dist/umd/index.js",
+  "typings": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "scripts": {
+
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "peerDependencies": {
+    "@angular/core": "^4.1.0"
+  },
+  "keywords": [
+    "ionic2",
+    "angular2",
+    "config",
+    "environment"
+  ]
+}
