@@ -9,7 +9,7 @@ export const ConfigData = new InjectionToken('ConfigDataId');
 @Injectable()
 export class Config {
 
-  private sectionsExtends: {[section: string]: string};
+  private sectionsExtends: {[section: string]: string} = {};
 
   constructor(@Inject(ConfigData) private data: Data) {}
 
