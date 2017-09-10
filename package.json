@@ -23,6 +23,7 @@
     "prepush": "npm run lint",
     "prepublish": "npm run build",
     "publish": "node ./scripts/run-scope --publish",
+    "pretest": "npm run clean:dist",
     "test": "node ./scripts/run-scope --test",
     "posttest": "node ./scripts/run-scope --test"
   },

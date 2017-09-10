@@ -90,34 +90,22 @@ const Run = {
   },
 
   test: () => {
-    // Run.build().then(() => {
-      console.log('aquiuisuiaSUIausiaSIauisauI');
-      let argvsTest = ['exec'];
+    let argvsTest = ['exec'];
 
-      if (packages) {
-        argvsTest.push('--scope');
-        argvsTest = argvsPublish.concat(packages);
+    if (packages) {
+      argvsTest.push('--scope');
+      argvsTest = argvsPublish.concat(packages);
+    }
+
+    argvsTest = argvsTest.concat(['--', 'ngc', '-p', 'tsconfig-test.json']);
+
+    const test = spawn('lerna', argvsTest, { stdio: 'inherit' });
+
+    test.on('close', (code) => {
+      if (code) {
+        console.log('Error');
       }
-
-      argvsTest = argvsTest.concat(['--', 'ngc', '-p', 'tsconfig-test.json']);
-
-      console.log(argvsTest.join(' '));
-      const test = spawn('lerna', argvsTest, { stdio: 'inherit' });
-
-      test.stdout.on('data', (data) => {
-        console.log(`${data}`);
-      });
-
-      test.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-      });
-
-      test.on('close', (code) => {
-        if (code) {
-          console.log('Error');
-        }
-      });
-    // });
+    });
   }
 };
 
