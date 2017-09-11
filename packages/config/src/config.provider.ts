@@ -11,7 +11,16 @@ export class Config {
 
   private sectionsExtends: {[section: string]: string} = {};
 
-  constructor(@Inject(ConfigData) private data: Data) {}
+  constructor(@Inject(ConfigData) private data: Data) {
+    // check if assign extends in keys ex: dev:prod -> dev inherits prod
+    const sections = Object.keys(this.data);
+    for (const section of sections) {
+      if (section.indexOf(':') !== -1) {
+        const [ sectionMain, sectionExtends ] = section.split(':');
+        this.setSectionExtends(sectionMain, sectionExtends);
+      }
+    }
+  }
 
   /**
    * Return all data
@@ -30,7 +39,7 @@ export class Config {
    */
   set(key: string, value: any, section: string): this {
     // case section not exists create empty
-    if (!(section in this.data)) {
+    if (!this.searchSection(section)) {
       this.data[section] = {};
     }
 
@@ -45,18 +54,18 @@ export class Config {
    * @return {Config} fluent interface
    */
   setSectionExtends(section: string, sectionExtends: string): this {
-    this.sectionsExtends[section] = sectionExtends;
-
     // can't inherits case not exists in data
-    if (!(sectionExtends in this.data)) {
+    if (!this.searchSection(sectionExtends)) {
       const messageException = `Not allow inherits '${sectionExtends}' because not exists in data`;
       throw new Error(messageException);
     }
 
     // case section main not exists create empty
-    if (!(section in this.data)) {
+    if (!this.searchSection(section)) {
       this.data[section] = {};
     }
+
+    this.sectionsExtends[section] = sectionExtends;
 
     return this;
   }
@@ -85,18 +94,42 @@ export class Config {
    */
   get(key: string, section: string): any {
     // if section not exists throw exception
-    if (!(section in this.data)) {
+    let searchSection: any = this.searchSection(section);
+    if (!searchSection) {
       throw new Error(`Section ${section} not exists`);
     }
 
     // case exists key return to not check extends
-    if (key in this.data[section]) {
-      return this.data[section][key];
+    if (key in this.data[searchSection]) {
+      return this.data[searchSection][key];
     }
 
     // get name section extends
     const sectionExtends = this.getSectionExtends(section);
+    searchSection = this.searchSection(sectionExtends);
 
-    return this.data[sectionExtends][key] || null;
+    return this.data[searchSection][key] || null;
+  }
+
+  /**
+   * Return section simple ex: 'dev', extends 'dev:prod' or false
+   *
+   * @param {string} section
+   * @return {string|boolean}
+   */
+  private searchSection(section: string) {
+    if (section in this.data) {
+      return section;
+    }
+
+    const sections = Object.keys(this.data);
+
+    for (const indexSection of sections) {
+      if (indexSection.indexOf(`${section}:`) !== -1) {
+        return indexSection;
+      }
+    }
+
+    return false;
   }
 }

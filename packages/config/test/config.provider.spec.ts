@@ -19,13 +19,16 @@ describe('Config Provider', () => {
     configProvider({
       'dev': {
         'key': 'value'
+      },
+      'staging:dev': {
+        'foo': 'bar'
       }
     });
   });
 
   it('Get all', inject([ Config ], (config: Config) => {
     const keys = Object.keys(config.getAll());
-    expect(keys.length).toBe(1);
+    expect(keys.length).toBe(2);
   }));
 
   it('Get value', inject([ Config ], (config: Config) => {
@@ -46,6 +49,11 @@ describe('Config Provider', () => {
   it('Section extends', inject([ Config ], (config: Config) => {
     config.setSectionExtends('prod', 'dev');
     expect(config.getSectionExtends('prod')).toBe('dev');
+  }));
+
+  it('Get value extends', inject([ Config ], (config: Config) => {
+    expect(config.get('key', 'staging')).toBe('value');
+    expect(config.get('foo', 'staging')).toBe('bar');
   }));
 
   it('Set section inherits not exists', inject([ Config ], (config: Config) => {
