@@ -48,8 +48,13 @@ describe('Config Provider', () => {
     expect(config.getSectionExtends('prod')).toBe('dev');
   }));
 
-  it('Section extends not exists', inject([ Config ], (config: Config) => {
+  it('Set section inherits not exists', inject([ Config ], (config: Config) => {
     expect(() => config.setSectionExtends('prod', 'dev2'))
      .toThrow(new Error('Not allow inherits \'dev2\' because not exists in data'));
+  }));
+
+  it('Get Section inherits not exists', inject([ Config ], (config: Config) => {
+    expect(() => config.getSectionExtends('prod'))
+     .toThrow(new Error('Section \'prod\' not exists'));
   }));
 });

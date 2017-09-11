@@ -70,7 +70,7 @@ export class Config {
   getSectionExtends(section: string): string {
     // case section not inherits throw exception
     if (!this.sectionsExtends[section]) {
-      throw new Error(`Section ${section} not exists`);
+      throw new Error(`Section '${section}' not exists`);
     }
 
     return this.sectionsExtends[section];
