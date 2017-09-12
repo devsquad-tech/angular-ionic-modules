@@ -18,6 +18,7 @@
     "clean": "npm run clean:modules && npm run clean:dist",
     "commit": "git-cz",
     "commitmsg": "validate-commit-msg",
+    "prejasmine": "node ./scripts/jasmine/copy-bootstrap",
     "jasmine": "lerna exec -- jasmine JASMINE_CONFIG_PATH=../../scripts/jasmine/jasmine-config.json",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "prepush": "npm run lint",
@@ -25,6 +26,7 @@
     "publish": "node ./scripts/run-scope --publish",
     "pretest": "npm run clean:dist",
     "test": "node ./scripts/run-scope --test",
+    "test:karma": "karma start ./scripts/karma/karma.conf.js",
     "posttest": "npm run jasmine"
   },
   "dependencies": {
@@ -44,6 +46,11 @@
     "@devsquad/tslint-rules": "0.0.1",
     "commitizen": "^2.9.6",
     "husky": "^0.14.3",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage-istanbul-reporter": "^1.3.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "lerna": "^2.0.0",
     "reflect-metadata": "0.1.8",
     "rimraf": "^2.5.4",

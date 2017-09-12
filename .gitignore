@@ -3,6 +3,9 @@
 # compiled output
 dist
 
+# copy file
+bootstrap.ts
+
 # dependencies
 node_modules
 

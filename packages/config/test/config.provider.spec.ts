@@ -1,4 +1,4 @@
-import { bootstrap } from './fix-test';
+import './bootstrap';
 import { async, inject, TestBed } from '@angular/core/testing';
 import { Config, ConfigData } from '../src';
 
@@ -12,9 +12,9 @@ function configProvider(data?: any) {
 }
 
 describe('Config Provider', () => {
-  beforeAll(() => {
+  /* beforeAll(() => {
     bootstrap();
-  });
+  }); */
   beforeEach(() => {
     configProvider({
       'dev': {
