@@ -12,9 +12,6 @@ function configProvider(data?: any) {
 }
 
 describe('Config Provider', () => {
-  /* beforeAll(() => {
-    bootstrap();
-  }); */
   beforeEach(() => {
     configProvider({
       'dev': {
