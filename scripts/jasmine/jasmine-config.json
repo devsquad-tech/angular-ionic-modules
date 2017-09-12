@@ -3,6 +3,9 @@
   "spec_files": [
     "**/*[sS]pec.js"
   ],
+  "helpers": [
+    "../../../../scripts/jasmine/reporter.js"
+  ],
   "stopSpecOnExpectationFailure": false,
   "random": false
 }

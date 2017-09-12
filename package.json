@@ -18,7 +18,7 @@
     "clean": "npm run clean:modules && npm run clean:dist",
     "commit": "git-cz",
     "commitmsg": "validate-commit-msg",
-    "jasmine": "lerna exec -- jasmine JASMINE_CONFIG_PATH=test/jasmine-config.json",
+    "jasmine": "lerna exec -- jasmine JASMINE_CONFIG_PATH=../../scripts/jasmine/jasmine-config.json",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "prepush": "npm run lint",
     "prepublish": "npm run build",
@@ -35,6 +35,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@types/jasmine": "2.2.33",
     "jasmine": "2.5.2",
+    "jasmine-spec-reporter": "^4.1.0",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.4"
   },

@@ -7,7 +7,6 @@
   "typings": "dist/index.d.ts",
   "module": "dist/index.js",
   "scripts": {
-
   },
   "files": [
     "dist/",
