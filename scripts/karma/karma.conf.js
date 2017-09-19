@@ -1,38 +1,45 @@
 module.exports = function(config) {
-  var _config = {
-    basePath: '../',
 
-    frameworks: ['jasmine'],
+  const preProcessors = {
+    'scripts/karma/karma-test-shim.js': [ 'browserify' ],
+  };
 
-    files: [
-      {
-        pattern: './karma/karma-test-shim.ts',
-        watched: false
-      }
-    ],
+  const files = [
+    { pattern: 'scripts/karma/karma-test-shim.js', watched: true }
+  ];
 
-    preprocessors: {
-      // './karma/karma-test-shim.ts': ['webpack', 'sourcemap']
+  if (!config.packages) {
+    preProcessors['packages/**/dist/test/*spec.js'] = [ 'browserify' ];
+    files.push({ pattern: 'packages/**/dist/test/*spec.js', included: true, watched: false });
+  } else {
+    const packages = config.packages.split(',');
+    console.log('Testing packages: ', config.packages);
+    for (const package of packages) {
+      preProcessors[`packages/${package}/dist/test/*spec.js`] = [ 'browserify' ];
+      files.push({ pattern: `packages/${package}/dist/test/*spec.js`, included: true, watched: false });
+    }
+  }
+
+  const _config = {
+    basePath: '../..',
+
+    frameworks: ['browserify', 'jasmine'],
+
+    files: files,
+
+    preprocessors: preProcessors,
+
+    browserify: {
+      debug: true,
+      extensions: ['.js']
     },
 
-    browserConsoleLogOptions: {
-      level: 'log',
-      format: '%b %T: %m',
-      terminal: true
-    },
-
-    coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
-      fixWebpackSourcePaths: true
-    },
-
-    reporters: config.coverage ? ['kjhtml', 'dots', 'coverage-istanbul'] : ['kjhtml', 'dots'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
+    reporters: ['spec'],
+    singleRun: false,
+    browsers: ['Chrome']
   };
 
   config.set(_config);

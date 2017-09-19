@@ -5,9 +5,9 @@ const { spawn } = require('child_process');
 const Run = {
   build: () => {
     let buildParams = ['exec'];
-    if (packages) {
+    if (packagesNpm) {
       buildParams.push('--scope');
-      buildParams = buildParams.concat(packages);
+      buildParams = buildParams.concat(packagesNpm);
     }
 
     buildParams.push('--');
@@ -37,9 +37,9 @@ const Run = {
         '--skip-git'
       ];
 
-      if (packages) {
+      if (packagesNpm) {
         argvsCanary.push('--scope');
-        argvsCanary = argvsCanary.concat(packages);
+        argvsCanary = argvsCanary.concat(packagesNpm);
       }
 
       const canary = spawn('lerna', argvsCanary, { stdio: 'inherit' });
@@ -66,9 +66,9 @@ const Run = {
         'chore(*): Publish'
       ];
 
-      if (packages) {
+      if (packagesNpm) {
         argvsPublish.push('--scope');
-        argvsPublish = argvsPublish.concat(packages);
+        argvsPublish = argvsPublish.concat(packagesNpm);
       }
 
       const publish = spawn('lerna', argvsPublish, { stdio: 'inherit' });
@@ -89,32 +89,52 @@ const Run = {
     });
   },
 
-  test: () => {
+  buildTest: () => {
     let argvsTest = ['exec'];
 
-    if (packages) {
+    if (packagesNpm) {
       argvsTest.push('--scope');
-      argvsTest = argvsPublish.concat(packages);
+      argvsTest = argvsTest.concat(packagesNpm);
     }
 
     argvsTest = argvsTest.concat(['--', 'ngc', '-p', 'tsconfig-test.json']);
 
-    const test = spawn('lerna', argvsTest, { stdio: 'inherit' });
+    return new Promise((resolve, reject) => {
+      const test = spawn('lerna', argvsTest, { stdio: 'inherit' });
+      test.on('close', (code) => {
 
-    test.on('close', (code) => {
-      if (code) {
-        console.log('Error');
+        if (code) {
+          console.log('Error');
+          reject();
+        }
+        resolve();
+      });
+
+    });
+  },
+
+  test: () => {
+    Run.buildTest().then(() => {
+      const args = ['start', './scripts/karma/karma.conf.js'];
+      // assign packages karma test runner
+      if (packages) {
+        args.push('--packages');
+        args.push(packages);
       }
+
+      const karma = spawn('karma', args, { stdio: 'inherit' });
     });
   }
 };
 
 const argvJson = JSON.parse(process.env.npm_config_argv);
 let packages = argvJson.original[2];
+let packagesNpm;
+let packagesBasename;
 
 if (packages) {
-  packages = packages.split(',');
-  packages = packages.map((value) => {
+  packagesBasename = packages.split(',');
+  packagesNpm = packagesBasename.map((value) => {
     return `@devsquad/${value}`;
   });
 }

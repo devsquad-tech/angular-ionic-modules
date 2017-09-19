@@ -1,4 +1,3 @@
-import './bootstrap';
 import { async, inject, TestBed } from '@angular/core/testing';
 import { Config, ConfigData } from '../src';
 
