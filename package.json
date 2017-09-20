@@ -48,7 +48,7 @@
     "karma-coverage": "^1.1.0",
     "karma-jasmine": "^1.1.0",
     "karma-spec-reporter": "0.0.31",
-    "lerna": "^2.0.0",
+    "lerna": "^2.2.0",
     "rimraf": "^2.5.4",
     "rxjs": "^5.4.1",
     "typescript": "^2.4.2",
