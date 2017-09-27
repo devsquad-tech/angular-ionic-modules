@@ -4,8 +4,7 @@
   "private": true,
   "engines": {
     "node": ">=6.9.0",
-    "npm": ">=3.0.0",
-    "yarn": ">=0.21.3"
+    "npm": ">=3.0.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
