@@ -10,9 +10,9 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "prebuild": "npm run clean:dist",
-    "build": "node ./scripts/run-scope --build",
+    "build": "node ./scripts/run-scope build",
     "precanary": "npm run build",
-    "canary": "node ./scripts/run-scope --canary",
+    "canary": "node ./scripts/run-scope canary",
     "clean:dist": "lerna exec -- rimraf ./dist",
     "clean:modules": "lerna clean",
     "clean": "npm run clean:modules && npm run clean:dist",
@@ -23,10 +23,12 @@
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "precommit": "npm run lint",
     "prepublish": "npm run build",
-    "publish": "node ./scripts/run-scope --publish",
-    "prepush": "npm run test",
+    "publish": "node ./scripts/run-scope publish",
+    "prepush": "npm run test:ci",
     "pretest": "npm run clean:dist",
-    "test": "node ./scripts/run-scope --test"
+    "test": "node ./scripts/run-scope test",
+    "pretest:ci": "npm run clean:dist",
+    "test:ci": "node ./scripts/run-scope test --single-run"
   },
   "dependencies": {
     "@angular/common": "^4.0.0",

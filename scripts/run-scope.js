@@ -113,9 +113,12 @@ const Run = {
     });
   },
 
-  test: () => {
+  test: (argv) => {
     Run.buildTest().then(() => {
-      const args = ['start', './scripts/karma/karma.conf.js'];
+      let args = ['start', './scripts/karma/karma.conf.js'];
+      if (argv.length) {
+        args = args.concat(argv);
+      }
       // assign packages karma test runner
       if (packages) {
         args.push('--packages');
@@ -140,6 +143,6 @@ if (packages) {
 }
 
 if (argvJson.original) {
-  const method = process.argv[2].replace(/-/g, '');
-  Run[method]();
+  const method = process.argv[2];
+  Run[method](process.argv.slice(3));
 }
