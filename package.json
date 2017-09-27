@@ -17,7 +17,9 @@
     "clean:modules": "lerna clean",
     "clean": "npm run clean:modules && npm run clean:dist",
     "commit": "git-cz",
-    "commitmsg": "validate-commit-msg",
+    "commitlint": "commitlint",
+    "commitmsg": "commitlint -e",
+    "link": "lerna link",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "prepush": "npm run lint",
     "prepublish": "npm run build",
@@ -31,6 +33,8 @@
     "@angular/core": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
+    "@commitlint/cli": "^3.2.0",
+    "@commitlint/config-angular": "^3.1.1",
     "@types/jasmine": "2.2.33",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.4"
@@ -52,35 +56,6 @@
     "rimraf": "^2.5.4",
     "rxjs": "^5.4.1",
     "typescript": "^2.4.2",
-    "validate-commit-msg": "^2.14.0",
     "watchify": "^3.9.0"
-  },
-  "config": {
-    "validate-commit-msg": {
-      "types": [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "chore"
-      ],
-      "scope": {
-        "required": false,
-        "allowed": [
-          "*"
-        ],
-        "validate": false,
-        "multiple": true
-      },
-      "warnOnFail": false,
-      "maxSubjectLength": 100,
-      "subjectPattern": ".+",
-      "subjectPatternErrorMsg": "subject does not match subject pattern!",
-      "helpMessage": "",
-      "autoFix": false
-    }
   }
 }
