@@ -21,9 +21,10 @@
     "commitmsg": "commitlint -e",
     "link": "lerna link",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
-    "prepush": "npm run lint",
+    "precommit": "npm run lint",
     "prepublish": "npm run build",
     "publish": "node ./scripts/run-scope --publish",
+    "prepush": "npm run test",
     "pretest": "npm run clean:dist",
     "test": "node ./scripts/run-scope --test"
   },
