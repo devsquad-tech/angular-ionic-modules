@@ -21,6 +21,7 @@
     "commitmsg": "commitlint -e",
     "link": "lerna link",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
+    "precommit": "npm run lint",
     "prepublish": "npm run build",
     "publish": "node ./scripts/run-scope publish",
     "prepush": "npm run test:ci",

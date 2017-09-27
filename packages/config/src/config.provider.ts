@@ -4,7 +4,6 @@ export interface Data {
   [section: string]: { [key: string]: any };
 }
 
-
 export const ConfigData = new InjectionToken('ConfigDataId');
 
 @Injectable()
