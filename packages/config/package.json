@@ -6,7 +6,8 @@
   "main": "dist/umd/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/index.js",
-  "scripts": {
+  "publishConfig": {
+    "access": "public"
   },
   "files": [
     "dist/",
