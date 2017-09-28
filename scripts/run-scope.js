@@ -33,7 +33,6 @@ const Run = {
         '--canary',
         '--exact',
         '--yes',
-        '--npm-tag=canary',
         '--skip-git'
       ];
 
