@@ -27,5 +27,8 @@ script:
   - npm run lint
 
 after_success:
-  - npm-cli-login
-  - npm run canary
+  - |
+    if [[ $TRAVIS_BRANCH = develop ]]; then
+      npm-cli-login
+      npm run canary
+    fi
