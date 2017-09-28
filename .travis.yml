@@ -12,9 +12,14 @@ cache:
 
 install:
   - npm install --no-save
+  - npm install -g npm-cli-login
 
 before_script:
   - echo $TRAVIS_COMMIT_MESSAGE | npm run commitlint
 
 script:
   - npm run lint
+
+after_success:
+  - npm-cli-login
+  - npm run canary
