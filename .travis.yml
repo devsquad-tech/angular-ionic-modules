@@ -31,4 +31,5 @@ after_success:
     if [[ $TRAVIS_BRANCH = develop ]]; then
       npm-cli-login
       npm run canary
+      npm logout
     fi
