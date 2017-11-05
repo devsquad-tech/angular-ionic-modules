@@ -114,24 +114,28 @@ const Run = {
 
   test: (argv) => {
     Run.buildTest().then(() => {
-      let args = ['exec', '--', 'jest', 'test/', '--config', '../../jest.config.js'];
+      let args = ['exec'];
+
+      // assign packages karma test runner
+      if (packages) {
+        args.push('--scope');
+        args.push(packagesNpm);
+      }
+
       if (argv.length) {
         args = args.concat(argv);
       }
-      // assign packages karma test runner
-      if (packages) {
-        args.push('--packages');
-        args.push(packages);
-      }
 
-      const karma = spawn('lerna', args, { stdio: 'inherit' });
+      args = args.concat(['--', 'jest', 'test/', '--config', '../../jest.config.js']);
+
+      spawn('lerna', args, { stdio: 'inherit' });
     });
   }
 };
 
 const argvJson = JSON.parse(process.env.npm_config_argv);
 let packages = argvJson.original[2];
-let packagesNpm;
+let packagesNpm = [];
 let packagesBasename;
 
 if (packages) {
@@ -143,5 +147,9 @@ if (packages) {
 
 if (argvJson.original) {
   const method = process.argv[2];
-  Run[method](process.argv.slice(3));
+  let argvIndex = 3;
+  if (packagesNpm.length) {
+    argvIndex = 4;
+  }
+  Run[method](process.argv.slice(argvIndex));
 }
