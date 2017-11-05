@@ -18,6 +18,8 @@
     "commit": "git-cz",
     "commitlint": "commitlint",
     "commitmsg": "commitlint -e",
+    "precoverage": "npm run clean:dist",
+    "coverage": "node ./scripts/run-scope test --coverage",
     "link": "lerna link",
     "lint": "lerna exec -- tslint --config ../../tslint.json --project ../../tsconfig.json --type-check",
     "precommit": "npm run lint",

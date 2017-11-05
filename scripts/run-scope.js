@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 const Run = {
   build: () => {
     let buildParams = ['exec'];
-    if (packagesNpm) {
+    if (packagesNpm.length) {
       buildParams.push('--scope');
       buildParams = buildParams.concat(packagesNpm);
     }
@@ -36,7 +36,7 @@ const Run = {
         '--skip-git'
       ];
 
-      if (packagesNpm) {
+      if (packagesNpm.length) {
         argvsCanary.push('--scope');
         argvsCanary = argvsCanary.concat(packagesNpm);
       }
@@ -65,7 +65,7 @@ const Run = {
         'chore(*): Publish'
       ];
 
-      if (packagesNpm) {
+      if (packagesNpm.length) {
         argvsPublish.push('--scope');
         argvsPublish = argvsPublish.concat(packagesNpm);
       }
@@ -91,7 +91,7 @@ const Run = {
   buildTest: () => {
     let argvsTest = ['exec'];
 
-    if (packagesNpm) {
+    if (packagesNpm.length) {
       argvsTest.push('--scope');
       argvsTest = argvsTest.concat(packagesNpm);
     }
@@ -117,16 +117,16 @@ const Run = {
       let args = ['exec'];
 
       // assign packages karma test runner
-      if (packages) {
+      if (packagesNpm.length) {
         args.push('--scope');
         args.push(packagesNpm);
       }
 
+      args = args.concat(['--', 'jest', 'test/', '--config', '../../jest.config.js']);
+
       if (argv.length) {
         args = args.concat(argv);
       }
-
-      args = args.concat(['--', 'jest', 'test/', '--config', '../../jest.config.js']);
 
       spawn('lerna', args, { stdio: 'inherit' });
     });
@@ -138,7 +138,7 @@ let packages = argvJson.original[2];
 let packagesNpm = [];
 let packagesBasename;
 
-if (packages) {
+if (packages && packages.indexOf('--') > -1) {
   packagesBasename = packages.split(',');
   packagesNpm = packagesBasename.map((value) => {
     return `@devsquad/${value}`;
@@ -147,9 +147,5 @@ if (packages) {
 
 if (argvJson.original) {
   const method = process.argv[2];
-  let argvIndex = 3;
-  if (packagesNpm.length) {
-    argvIndex = 4;
-  }
-  Run[method](process.argv.slice(argvIndex));
+  Run[method](process.argv.slice(3));
 }
