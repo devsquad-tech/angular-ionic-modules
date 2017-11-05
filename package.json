@@ -27,7 +27,7 @@
     "pretest": "npm run clean:dist",
     "test": "node ./scripts/run-scope test",
     "pretest:ci": "npm run clean:dist",
-    "test:ci": "node ./scripts/run-scope test --single-run"
+    "test:ci": "node ./scripts/run-scope test --ci"
   },
   "dependencies": {
     "@angular/common": "^4.0.0",
@@ -47,13 +47,8 @@
     "browserify": "^14.4.0",
     "commitizen": "^2.9.6",
     "husky": "^0.14.3",
-    "jasmine": "2.5.2",
-    "karma": "^1.5.0",
-    "karma-browserify": "^5.1.0",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.1.0",
-    "karma-jasmine": "^1.1.0",
-    "karma-spec-reporter": "0.0.31",
+    "jest": "^21.2.1",
+    "jest-preset-angular": "^4.0.0",
     "lerna": "^2.0.0",
     "rimraf": "^2.5.4",
     "rxjs": "^5.4.1",

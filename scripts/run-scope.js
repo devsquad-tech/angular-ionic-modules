@@ -114,7 +114,7 @@ const Run = {
 
   test: (argv) => {
     Run.buildTest().then(() => {
-      let args = ['start', './scripts/karma/karma.conf.js'];
+      let args = ['exec', '--', 'jest', 'test/', '--config', '../../jest.config.js'];
       if (argv.length) {
         args = args.concat(argv);
       }
@@ -124,7 +124,7 @@ const Run = {
         args.push(packages);
       }
 
-      const karma = spawn('karma', args, { stdio: 'inherit' });
+      const karma = spawn('lerna', args, { stdio: 'inherit' });
     });
   }
 };
