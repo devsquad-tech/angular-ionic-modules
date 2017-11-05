@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "^4.0.0",
-    "@devsquad/tslint-rules": "0.0.1",
+    "@devsquad/tslint-rules": "0.0.3",
     "browserify": "^14.4.0",
     "commitizen": "^2.9.6",
     "husky": "^0.14.3",
