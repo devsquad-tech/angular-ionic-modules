@@ -50,7 +50,7 @@ export class Config {
    */
   getByKey(key: string, section: string): any {
     if (!(section in this.data)) {
-      throw new Error(`Section ${section} not exists`);
+      throw new Error(`Section '${section}' not exists`);
     }
 
     return this.data[section][key] || null;

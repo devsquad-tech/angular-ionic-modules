@@ -36,4 +36,10 @@ describe('Config Provider', () => {
     expect(chainConfig).toBe(config);
     expect(config.getByKey('key2', 'dev')).toBe('foo');
   }));
+
+  it('Get by Key section not exists', inject([ Config ], (config: Config) => {
+
+    expect(() => config.getByKey('key2', 'prod'))
+    .toThrow(new Error('Section \'prod\' not exists'));
+  }));
 });
