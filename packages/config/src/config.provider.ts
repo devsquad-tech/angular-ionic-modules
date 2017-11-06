@@ -15,6 +15,22 @@ export class Config {
     // @todo validate section
   }
 
+  set(data: any): this {
+    this.data = data;
+
+    return this;
+  }
+
+  setBySection(section: string, data: any): this {
+    this.data[section] = data;
+
+    return this;
+  }
+
+  getBySection(section: string): any {
+    return this.data[section];
+  }
+
   /**
    * Return all data
    *
